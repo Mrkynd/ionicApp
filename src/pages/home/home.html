@@ -1,34 +1,32 @@
 <ion-header>
   <ion-navbar>
     <ion-title>
-      Life ++
+      Lyfa
     </ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="toggleReorder()">EDIT</button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-thumbnail item=left>
-        <img [src]="person.results[0].picture.large" alt="avatar">
-      </ion-thumbnail>
-    </ion-item>
+<ion-content fullscreen>
+  <ion-list [reorder]="shouldReorder" (ionItemReorder)="$event.applyTo(people)">
+    <ion-item-sliding *ngFor="let person of people">
+      <ion-item>
+        <ion-thumbnail item=start>
+          <img [src]="person.picture.thumbnail" alt="avatar">
+        </ion-thumbnail>
+        <h2>
+        {{person.name.first}} {{person.name.last}}
+        </h2>
+        <ion-note item-right>{{person.phone}}</ion-note>
+      </ion-item>
+      <ion-item-options side="right">
+        <button ion-button>EDIT</button>
+      </ion-item-options>
+      <ion-item-options side="left">
+        <button ion-button>DELETE</button>
+      </ion-item-options>
+    </ion-item-sliding>
   </ion-list>
-
-  <ion-grid>
-    <ion-row>
-        <ion-col col-6><h4>Name</h4></ion-col>
-        <ion-col col-6><h4>{{person.results[0].name.fullName}}</h4></ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col col-6><h4>Email</h4></ion-col>
-        <ion-col col-6><h4>{{person.results[0].email}}</h4></ion-col>
-    </ion-row>
-    <ion-row>
-        <ion-col col-6><h4>Location</h4></ion-col>
-        <ion-col col-6><h4>{{person.results[0].location.street}}</h4></ion-col>
-    </ion-row>
-  </ion-grid>
-
-  <pre>{{person | json}}</pre>
 </ion-content>
